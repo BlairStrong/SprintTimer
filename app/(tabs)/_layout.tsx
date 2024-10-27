@@ -1,5 +1,4 @@
 import { Tabs } from 'expo-router';
-/* @tutinfo Import <CODEIonicons</CODE> icon set.*/
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
@@ -18,7 +17,6 @@ export default function TabLayout() {
         },
       }}
     >
-
       <Tabs.Screen
         name="index"
         options={{
@@ -28,6 +26,16 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="inputs"
+        options={{
+          title: 'Inputs',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'barbell-sharp' : 'barbell-outline'} color={color} size={24} />
+          ),
+        }}
+      />
+
       <Tabs.Screen
         name="about"
         options={{
