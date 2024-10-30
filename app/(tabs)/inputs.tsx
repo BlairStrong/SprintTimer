@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import { Audio } from 'expo-av';
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { Audio } from "expo-av";
 
 const playBeep = async () => {
-  const { sound } = await Audio.Sound.createAsync(
-    require('C:/Users/blair/ReactNative/SprintTimer/assets/beep.mp3'));
+  const { sound } = await Audio.Sound.createAsync(require("@/assets/beep.mp3"));
   await sound.playAsync();
 };
 
@@ -18,7 +17,7 @@ const CountdownTimer = ({ startTime, onGoBack }) => {
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft(prevTime => {
+      setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
           clearInterval(intervalId);
           return 0;
@@ -39,8 +38,8 @@ const CountdownTimer = ({ startTime, onGoBack }) => {
 };
 
 const DistanceDelayScreen = () => {
-  const [distance, setDistance] = useState('');
-  const [delay, setDelay] = useState('');
+  const [distance, setDistance] = useState("");
+  const [delay, setDelay] = useState("");
   const [showTimer, setShowTimer] = useState(false);
 
   const handleSubmit = () => {
@@ -79,7 +78,10 @@ const DistanceDelayScreen = () => {
           <Button title="Submit" onPress={handleSubmit} />
         </>
       ) : (
-        <CountdownTimer startTime={parseInt(delay, 10)} onGoBack={handleGoBack} />
+        <CountdownTimer
+          startTime={parseInt(delay, 10)}
+          onGoBack={handleGoBack}
+        />
       )}
     </View>
   );
@@ -88,9 +90,9 @@ const DistanceDelayScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   label: {
     fontSize: 18,
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
     paddingHorizontal: 8,
     marginBottom: 16,
@@ -106,12 +108,12 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   timerText: {
     fontSize: 48,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
