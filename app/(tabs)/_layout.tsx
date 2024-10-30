@@ -27,6 +27,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="Camera"
+        options={{
+          title: 'Camera',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'camera-outline' : 'camera-outline'} color={color} size={24} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="inputs"
         options={{
           title: 'Inputs',
