@@ -1,43 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { Audio } from "expo-av";
+import OpenCamera from "../../components/OpenCamera";
+import StartDelayTimer from "../../components/StartDelayTimer";
 
-const playBeep = async () => {
-  const { sound } = await Audio.Sound.createAsync(require("@/assets/beep.mp3"));
-  await sound.playAsync();
-};
-
-const CountdownTimer = ({ startTime, onGoBack }) => {
-  const [timeLeft, setTimeLeft] = useState(startTime);
-
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      playBeep();
-      return;
-    }
-
-    const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(intervalId);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000); // Change interval to 1000 ms for seconds
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
-
-  return (
-    <View style={styles.timerContainer}>
-      <Text style={styles.timerText}>{timeLeft} seconds left</Text>
-      <Button title="Go Back" onPress={onGoBack} />
-    </View>
-  );
-};
-
-const DistanceDelayScreen = () => {
+const InputScreen = () => {
   const [distance, setDistance] = useState("");
   const [delay, setDelay] = useState("");
   const [showTimer, setShowTimer] = useState(false);
@@ -78,7 +45,7 @@ const DistanceDelayScreen = () => {
           <Button title="Submit" onPress={handleSubmit} />
         </>
       ) : (
-        <CountdownTimer
+        <StartDelayTimer
           startTime={parseInt(delay, 10)}
           onGoBack={handleGoBack}
         />
@@ -117,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DistanceDelayScreen;
+export default InputScreen;
