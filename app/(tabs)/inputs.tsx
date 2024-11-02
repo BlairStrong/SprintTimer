@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { Audio } from "expo-av";
-import OpenCamera from "../../components/OpenCamera";
+import { useFocusEffect } from "@react-navigation/native";
 import StartDelayTimer from "../../components/StartDelayTimer";
 
 const InputScreen = () => {
   const [distance, setDistance] = useState("");
   const [delay, setDelay] = useState("");
   const [showTimer, setShowTimer] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset inputs and timer every time the screen is focused
+      setDistance("");
+      setDelay("");
+      setShowTimer(false);
+    }, [])
+  );
 
   const handleSubmit = () => {
     if (isNaN(distance) || isNaN(delay)) {
@@ -72,15 +80,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginBottom: 16,
     borderRadius: 4,
-  },
-  timerContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  timerText: {
-    fontSize: 48,
-    fontWeight: "bold",
   },
 });
 

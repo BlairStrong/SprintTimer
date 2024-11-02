@@ -1,8 +1,8 @@
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
-const OpenCamera = () => {
+const OpenCamera = ({ onGoBack }) => {
   const [facing, setFacing] = useState<CameraType>("back");
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -18,7 +18,7 @@ const OpenCamera = () => {
         <Text style={styles.message}>
           We need your permission to show the camera
         </Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Button onPress={requestPermission} title="Grant Permission" />
       </View>
     );
   }
@@ -29,13 +29,20 @@ const OpenCamera = () => {
 
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
+      {/* Camera View with specified width and height */}
+      <CameraView style={styles.camera} facing={facing} />
+
+      {/* Flip Camera button below the CameraView */}
+      <View style={styles.buttonContainer}>
+        <Button title="Flip Camera" onPress={toggleCameraFacing} color="#fff" />
+      </View>
+
+      {/* Go Back button positioned lower and to the right */}
+      <Button
+        title="Back to Inputs"
+        onPress={onGoBack}
+        style={styles.goBackButton}
+      />
     </View>
   );
 };
@@ -44,29 +51,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
   message: {
     textAlign: "center",
     paddingBottom: 10,
   },
   camera: {
-    flex: 1,
+    width: "10%", // Narrow width for vertical shape
+    height: "100%", // Full height
+    alignSelf: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
-    flex: 1,
     flexDirection: "row",
-    backgroundColor: "transparent",
-    margin: 64,
+    marginTop: 20,
   },
-  button: {
-    flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+  goBackButton: {
+    position: "absolute",
+    bottom: 30, // Position the button 30 units from the bottom of the screen
+    right: 20, // Position the button 20 units from the right
+    padding: 10,
+    backgroundColor: "#2196F3", // Button color for visibility
+    color: "white", // Text color
+    borderRadius: 5,
   },
 });
 
